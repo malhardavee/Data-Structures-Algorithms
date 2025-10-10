@@ -1,0 +1,66 @@
+User-Defined Data Type:
+
+ int, float, double, char, string
+
+ Class -> 12th -> 50 Students -> RollNo, Percentage, Name, height.
+
+ Cars -> Sedan, SUV, Hatchback -> Tyres, seats,etc.
+
+If a class is created with 3 attributes,
+then every new object created will have predefined spaces
+for the 3 attributes storing data
+-----------------------------------------------------
+ARRAYS vs CLASS
+
+1. array is used to store similar datatypes
+2. class is used to create objects containing multiple attributes
+-----------------------------------------------------
+PASSING CLASS TO FUNCTIONS:
+
+1. We have to declare the class outside main.
+2. Classes are passed by reference since it is a user defined data type.
+------------------------------------------------------
+CLASS IN DIFFERENT FILE:
+
+1. if the two different files are in the same package, then no error will be seen.
+2. if the files are in different packages, it wont work until import statement is used.
+
+--------------------------------------------------------
+ACCESS MODIFIERS:
+1. Public - all packages
+2. Private - same class
+3. Default - same package
+
+--------------------------------------------------------
+DEFAULT VALUES:
+
+public class Student{
+int roll, // 0
+String name, // null
+double percent // 0.0
+}
+---------------------------------------------------------
+GETTERS AND SETTERS
+---------------------------------------------------------
+CONSTRUCTOR:
+
+1. Student s1 = new Student("Raghav", 76, 92.1);
+
+A constructor is a special method that:
+
+Has the same name as the class
+
+Has no return type (not even void)
+
+Is automatically called when an object of the class is created
+
+------------------------------------------------------------
+STATIC Keyword:
+
+1. Used if we want to access a function in the class
+by using class name , not creating objects.
+
+------------------------------------------------------------
+4 PILLARS OF OOP:
+
+INHERITANCE, ABSTRACTION, ENCAPSULATION AND POLYMORPHISM
