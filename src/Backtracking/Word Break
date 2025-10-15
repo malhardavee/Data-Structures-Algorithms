@@ -1,0 +1,22 @@
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordSet = new HashSet<>(wordDict);
+        Map<Integer, Boolean> memo = new HashMap<>();
+        return backtrack(s, wordSet, 0, memo);
+    }
+
+    private boolean backtrack(String s, Set<String> wordSet, int start, Map<Integer, Boolean> memo) {
+        if (start == s.length()) return true;
+        if (memo.containsKey(start)) return memo.get(start);
+
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (wordSet.contains(s.substring(start, end)) && backtrack(s, wordSet, end, memo)) {
+                memo.put(start, true);
+                return true;
+            }
+        }
+
+        memo.put(start, false);
+        return false;
+    }
+}
