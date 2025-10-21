@@ -1,0 +1,20 @@
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> ans = new ArrayList<>();
+        helper(ans, new ArrayList<>(), n, k, 1);
+        return ans;
+    }
+    public void helper(List<List<Integer>> ans, List<Integer> list, int n, int k, int idx) {
+        // BASE CASE;
+        if(k == 0 || idx == n) {
+            ans.add(new ArrayList<>(list));
+            return;
+        }
+
+        for(int i = idx; i <= n; i++) {
+            list.add(i);
+            helper(ans, list, n, k-1,idx+1);
+            list.remove(list.size()-1);    
+        }
+    }
+}
