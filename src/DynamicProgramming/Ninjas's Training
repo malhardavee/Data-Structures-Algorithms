@@ -1,0 +1,21 @@
+class Solution {
+    public int ninjaTraining(int[][] matrix) {
+        int n = matrix.length;
+
+        int[] prev = new int[3];
+        prev[0] = matrix[0][0];
+        prev[1] = matrix[0][1];
+        prev[2] = matrix[0][2];
+
+        for(int i=1; i < n; i++) {
+            int[] temp = new int[3];
+
+            temp[0] = matrix[i][0] + Math.max(prev[1], prev[2]);
+            temp[1] = matrix[i][1] + Math.max(prev[0], prev[2]);
+            temp[2] = matrix[i][2] + Math.max(prev[0], prev[1]);
+
+            prev = temp;
+        }
+        return Math.max(prev[0], Math.max(prev[1], prev[2]));
+    }
+}
