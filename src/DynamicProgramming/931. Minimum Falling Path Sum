@@ -32,3 +32,46 @@ class Solution {
         return res;
     }
 }
+
+// The following code is a Space Optimised approach
+
+/* class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int[] prev = new int[n];
+
+        for(int i = 0; i < n; i++){
+            prev[i] = matrix[0][i];
+        }
+        
+        for(int i=1;i<n;i++){
+            int[] curr = new int[n];
+            for(int j = 0; j<n; j++){
+                int down = prev[j] + matrix[i][j];
+                
+                if(j==0){
+                    int diaright = prev[j+1] + matrix[i][j];
+                    curr[j] = Math.min(down, diaright);
+                }
+                else if(j == n-1){
+                    int dialeft = prev[j-1] + matrix[i][j];
+                    curr[j] = Math.min(down, dialeft);
+                }
+                else{
+                    int dialeft = prev[j-1] + matrix[i][j];
+                    int diaright = prev[j+1] + matrix[i][j];
+                    curr[j] = Math.min(down, Math.min(dialeft, diaright));
+                }
+            } 
+            
+            prev = curr;
+        }
+        
+        int res = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            res = Math.min(res, prev[i]);
+        }
+        return res;
+    }
+}
+*/
