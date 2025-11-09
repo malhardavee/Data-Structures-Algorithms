@@ -1,0 +1,31 @@
+class Solution {
+    public int maxChocolates(int[][] g) {
+        int rows = g.length, cols = g[0].length;
+        int[][] front = new int[cols][cols], curr = new int[cols][cols];
+
+        // Base case: last row
+        for (int c1 = 0; c1 < cols; c1++)
+            for (int c2 = 0; c2 < cols; c2++)
+                front[c1][c2] = (c1 == c2) ? g[rows - 1][c1] : g[rows - 1][c1] + g[rows - 1][c2];
+
+        // From second-last row upwards
+        for (int r = rows - 2; r >= 0; r--) {
+            for (int c1 = 0; c1 < cols; c1++)
+                for (int c2 = 0; c2 < cols; c2++) {
+                    int best = Integer.MIN_VALUE;
+                    for (int d1 = -1; d1 <= 1; d1++)
+                        for (int d2 = -1; d2 <= 1; d2++) {
+                            int nc1 = c1 + d1, nc2 = c2 + d2;
+                            if (nc1 >= 0 && nc1 < cols && nc2 >= 0 && nc2 < cols)
+                                best = Math.max(best, front[nc1][nc2]);
+                        }
+                    int chocolates = (c1 == c2) ? g[r][c1] : g[r][c1] + g[r][c2];
+                    curr[c1][c2] = chocolates + best;
+                }
+            for (int i = 0; i < cols; i++)
+                System.arraycopy(curr[i], 0, front[i], 0, cols);
+        }
+
+        return front[0][cols - 1];
+    }
+}
