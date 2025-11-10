@@ -1,0 +1,31 @@
+class Solution {
+    public boolean isSubsetSum(int[] arr, int target) {
+      boolean[] isVisited = new boolean[arr.length];
+      return helper(arr, target, isVisited, 0, 0);
+    }
+    public boolean helper(int[] arr, int target, boolean[] isVisited, int sum, int index){
+        //BASE CASE 1
+        if(sum > target){
+            return false;
+        }
+        //BASE CASE 2
+        if(sum == target){
+            return true;
+        }
+        
+        for(int i= index; i < arr.length; i++) {
+            if(!isVisited[i]){
+                sum += arr[i];
+                isVisited[i] = true;
+            //recursive call
+                if(helper(arr, target, isVisited, sum, i+1)){
+                    return true;
+                }
+                // BACKTRACKING
+                sum -= arr[i];
+                isVisited[i] = false;
+            }
+        }
+        return false;
+    }
+}
