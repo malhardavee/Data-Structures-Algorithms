@@ -1,0 +1,28 @@
+class Solution {
+    static final int MOD = 1000000007;
+
+    public int perfectSum(int[] arr, int K) {
+        int n = arr.length;
+        int[][] dp = new int[n+1][K+1];
+
+        // Base Case: dp[0][0] = 1 (empty subset)
+        dp[0][0] = 1;
+
+        for(int i = 1; i <= n; i++) {
+            for(int target = 0; target <= K; target++) {
+
+                // Not pick
+                int notTake = dp[i-1][target];
+
+                // Pick
+                int take = 0;
+                if(arr[i-1] <= target)
+                    take = dp[i-1][target - arr[i-1]];
+
+                dp[i][target] = (take + notTake) % MOD;
+            }
+        }
+
+        return dp[n][K];
+    }
+}
