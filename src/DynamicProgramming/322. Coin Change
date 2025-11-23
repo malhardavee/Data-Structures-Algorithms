@@ -1,0 +1,33 @@
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+
+        int[][] dp = new int[coins.length][amount + 1];
+        for (int[] row : dp) Arrays.fill(row, -1);  // fix 2D fill
+
+        int ans = f(coins, amount, coins.length - 1, dp);
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+
+    public int f(int[] coins, int amount, int idx, int[][] dp) {
+
+        // base case (your logic: only this coin available)
+        if (idx == 0) {
+            if (amount % coins[0] == 0) return amount / coins[0];
+            return Integer.MAX_VALUE;
+        }
+
+        if (dp[idx][amount] != -1) return dp[idx][amount];
+
+        // compute Nottake
+        int Nottake = f(coins, amount, idx - 1, dp);
+
+        // compute take
+        int take = Integer.MAX_VALUE;
+        if (coins[idx] <= amount) {
+            int res = f(coins, amount - coins[idx], idx, dp);
+            if (res != Integer.MAX_VALUE) take = 1 + res; // avoid overflow
+        }
+
+        return dp[idx][amount] = Math.min(take, Nottake);
+    }
+}
