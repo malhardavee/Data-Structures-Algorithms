@@ -1,33 +1,29 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
+        int n = coins.length;
+        int INF = (int)1e9;
 
-        int[][] dp = new int[coins.length][amount + 1];
-        for (int[] row : dp) Arrays.fill(row, -1);  // fix 2D fill
+        int[][] dp = new int[n][amount + 1];
 
-        int ans = f(coins, amount, coins.length - 1, dp);
-        return ans == Integer.MAX_VALUE ? -1 : ans;
-    }
-
-    public int f(int[] coins, int amount, int idx, int[][] dp) {
-
-        // base case (your logic: only this coin available)
-        if (idx == 0) {
-            if (amount % coins[0] == 0) return amount / coins[0];
-            return Integer.MAX_VALUE;
+        // Base case: using only the first coin
+        for (int t = 0; t <= amount; t++) {
+            if (t % coins[0] == 0) dp[0][t] = t / coins[0];
+            else dp[0][t] = INF;
         }
 
-        if (dp[idx][amount] != -1) return dp[idx][amount];
+        for (int i = 1; i < n; i++) {
+            for (int t = 0; t <= amount; t++) {
 
-        // compute Nottake
-        int Nottake = f(coins, amount, idx - 1, dp);
+                int notTake = dp[i - 1][t];
+                int take = INF;
 
-        // compute take
-        int take = Integer.MAX_VALUE;
-        if (coins[idx] <= amount) {
-            int res = f(coins, amount - coins[idx], idx, dp);
-            if (res != Integer.MAX_VALUE) take = 1 + res; // avoid overflow
+                if (coins[i] <= t) take = 1 + dp[i][t - coins[i]];
+
+                dp[i][t] = Math.min(take, notTake);
+            }
         }
 
-        return dp[idx][amount] = Math.min(take, Nottake);
+        int ans = dp[n - 1][amount];
+        return ans >= INF ? -1 : ans;
     }
 }
